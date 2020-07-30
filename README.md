@@ -1,5 +1,5 @@
 # WEB
 
-Apartment reservation.
+Apartment reservations.
 
 Projekat iz Web programiranja.
