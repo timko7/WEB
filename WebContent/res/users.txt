@@ -1,3 +1,5 @@
 admin|admin|Tim|Sab|MALE|ADMIN|NORMAL
 admin12|admin12|Acija|Acic|FEMALE|ADMIN|NORMAL
 admin13|admin13|Aco|Acic|MALE|ADMIN|BLOCKED
+musko|mm|Musko|Muskic|MALE|GUEST|NORMAL
+denko|dd|Zensko|Zenskic|FEMALE|GUEST|NORMAL

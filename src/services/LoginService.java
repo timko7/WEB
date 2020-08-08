@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import model.User;
 import model.collections.Users;
 import model.types.UserState;
+import model.types.UserType;
 
 @Path("/log")
 public class LoginService {
@@ -76,6 +77,32 @@ public class LoginService {
 		request.getSession().invalidate();
 		return Response.status(200).build();
 	}
+	
+	
+	
+	@POST
+	@Path("/registration")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User registration(User user) {
+		System.out.println("REGISTRACIJA: " + user);
+		
+		Users users = getUsers();
+		
+		if(users.getUsers().contains(user)){
+			return null;
+		} else {
+			
+			user.setUserType(UserType.GUEST);
+			user.setUserState(UserState.NORMAL);
+			
+			users.addUser(user);
+			request.getSession().setAttribute("user-info", user);
+			
+			users.saveUsers();
+			return user;
+		}		
+	}	
 	
 	
 	/**
