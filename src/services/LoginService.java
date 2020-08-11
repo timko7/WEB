@@ -25,6 +25,7 @@ public class LoginService {
 	ServletContext servletCtx;
 	
 	
+	
 	@GET
 	@Path("/test")
 	@Produces(MediaType.TEXT_PLAIN)

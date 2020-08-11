@@ -27,7 +27,7 @@ Vue.component('login', {
     	<admin-page v-if="loggedUser.userType === 'ADMIN'" :user="loggedUser"></admin-page>
     	
         <home-page-guest v-if="loggedUser.userType === 'GUEST'" :user="loggedUser"></home-page-guest>
-<!--        <home-page-host v-if="loggedUser.userType === 'HOST'" :user="loggedUser"></home-page-host> -->
+        <home-page-host v-if="loggedUser.userType === 'HOST'" :user="loggedUser"></home-page-host>
         
     </div>
     `,
