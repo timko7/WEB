@@ -1,7 +1,7 @@
 Vue.component('admin-page', {
     data: function() {
         return {
-            //currentComponent: 'admin-all-users',
+            currentComponent: 'profile-settings',
         }
     },
 
@@ -12,16 +12,24 @@ Vue.component('admin-page', {
     template:
     `
     <div align="center">
-    	<h1>Admins page!!</h1>
-    	<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
+    	<ul class="navbar">
+    	
+    		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
+            
+            <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>
+    		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
+    	</ul>
+    	
+    	<component :is="currentComponent" :user="user"></component>
+    	
     </div>
     `,
 
     methods: {
         /** Switch between components for <component> tag */
-//    	showComponent : function(componentName) {
-//            this.currentComponent = componentName;
-//        },
+    	showComponent : function(componentName) {
+            this.currentComponent = componentName;
+        },
 
         /** Http request for logout */
         logout : function() {
