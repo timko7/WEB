@@ -70,6 +70,16 @@ Vue.component('profile-settings', {
                 toast('Lozinke koje ste uneli se ne poklapaju!! Pokuštajte ponovo!');
                 return;
             }
+            
+            if (this.userInfo.name == null || this.userInfo.name.trim() === '') {
+            	toast('Ime ne može ostati prazno!! Pokušajte ponovo!');
+                return;
+            }
+            
+            if (this.userInfo.surname == null || this.userInfo.surname.trim() === '') {
+            	toast('Prezime ne može ostati prazno!! Pokušajte ponovo!');
+                return;
+            }
 
             if (this.newPassword !== null) {
                 this.userInfo.password = this.newPassword;
