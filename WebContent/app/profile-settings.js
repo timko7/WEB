@@ -17,10 +17,10 @@ Vue.component('profile-settings', {
     `
     
     
-    <div>
+    <div class='card-body'>
         <h3>Podešavanje mog profila</h3>
         
-        <table align="center" class="table-form">
+        <table class="table-form">
         	<tr>
         		<td>Korisničko ime</td>
         		<td><label>{{ userInfo.username }}</label></td>
@@ -62,22 +62,22 @@ Vue.component('profile-settings', {
 
         editProfile : function() {
             if (this.oldPassword !== this.userInfo.password) {
-                toast('Prethodna lozinka koju ste uneli nije ispravna!! Pokušajte ponovo!');
+                toastt('Prethodna lozinka koju ste uneli nije ispravna!! Pokušajte ponovo!');
                 return;
             }
 
             if (this.againPassword !== this.newPassword) {
-                toast('Lozinke koje ste uneli se ne poklapaju!! Pokuštajte ponovo!');
+                toastt('Lozinke koje ste uneli se ne poklapaju!! Pokuštajte ponovo!');
                 return;
             }
             
             if (this.userInfo.name == null || this.userInfo.name.trim() === '') {
-            	toast('Ime ne može ostati prazno!! Pokušajte ponovo!');
+            	toastt('Ime ne može ostati prazno!! Pokušajte ponovo!');
                 return;
             }
             
             if (this.userInfo.surname == null || this.userInfo.surname.trim() === '') {
-            	toast('Prezime ne može ostati prazno!! Pokušajte ponovo!');
+            	toastt('Prezime ne može ostati prazno!! Pokušajte ponovo!');
                 return;
             }
 
@@ -88,9 +88,9 @@ Vue.component('profile-settings', {
             axios.post('rest/data/userEdit', this.userInfo)
             .then(response => {
                 if (response.data === '') { // user doesn't exists
-                    toast('Greška prilikom izmene podataka!!');
+                    toastt('Greška prilikom izmene podataka!!');
                 } else {
-                    toast('Vaš profil je uspešno izmenjen');
+                    toastt('Vaš profil je uspešno izmenjen');
                 }
             });
         },

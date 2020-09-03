@@ -74,7 +74,7 @@ Vue.component('registration', {
             }
 
             if (this.passwordAgain !== this.user.password) {
-                toast('Lozinke koje ste uneli se ne poklapaju. Pokuštajte ponovo.');
+                toastt('Lozinke koje ste uneli se ne poklapaju. Pokuštajte ponovo.');
                 return;
             }
 
@@ -84,7 +84,7 @@ Vue.component('registration', {
             axios.post('rest/log/registration', this.user)
             .then(response => {
                 if (response.data === '') { // registration error
-                    toast('Greška prilikom registrovanja naloga. Korisničko ime je zauzeto.');
+                    toastt('Greška prilikom registrovanja naloga. Korisničko ime je zauzeto.');
                 } else {
                     router.push('/');
                 }
@@ -93,7 +93,7 @@ Vue.component('registration', {
 
         checkIfInputsAreFilled : function() {
             if (this.user.username == null || this.user.username.trim() === '') {
-                toast('Niste uneli korisničko ime.');
+                toastt('Niste uneli korisničko ime.');
                 this.usnameE = true;
                 return false;
             } else {
@@ -101,7 +101,7 @@ Vue.component('registration', {
             }
             
             if (this.user.password == null || this.user.username.trim() === '') {
-                toast('Niste uneli lozinku.');
+                toastt('Niste uneli lozinku.');
                 this.passE = true;
                 return false;
             } else {
@@ -109,7 +109,7 @@ Vue.component('registration', {
             }
             
             if (this.passwordAgain == null || this.passwordAgain.trim() === '') {
-                toast('Niste uneli ponovnu lozinku.');
+                toastt('Niste uneli ponovnu lozinku.');
                 this.passAE = true;
                 return false;
             } else {
@@ -117,7 +117,7 @@ Vue.component('registration', {
             }
             
             if (this.user.name == null || this.user.name.trim() === '') {
-                toast('Niste uneli ime.');
+                toastt('Niste uneli ime.');
                 this.nameE = true;
                 return false;
             } else {
@@ -125,7 +125,7 @@ Vue.component('registration', {
             }
             
             if (this.user.surname == null || this.user.surname.trim() === '') {
-                toast('Niste uneli prezime.');
+                toastt('Niste uneli prezime.');
                 this.snameE = true;
                 return false;
             } else {
@@ -133,7 +133,7 @@ Vue.component('registration', {
             }
             
             if (this.user.gender == null || this.user.gender.trim() === '') {
-            	toast('Niste odabrali pol.');
+            	toastt('Niste odabrali pol.');
             	this.genderE = true
             	return false;
             } else {

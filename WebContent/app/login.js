@@ -41,12 +41,12 @@ Vue.component('login', {
             axios.post('rest/log/login', this.user)
             .then(response => {
                 if (response.data === '') { // user doesn't exists
-                    toast('Nalog sa unetom kombinacijom korisničkog imena i lozinke ne postoji!');
+                    toastt('Nalog sa unetom kombinacijom korisničkog imena i lozinke ne postoji!');
                 } else {
                     this.loggedUser = response.data;
                     
                     if (this.loggedUser.userState === "BLOCKED") {
-                        toast('Vaš nalog je blokiran! Ne možete se prijaviti na aplikaciju!'); 
+                        toastt('Vaš nalog je blokiran! Ne možete se prijaviti na aplikaciju!'); 
                     } else {
                         this.userLoggedIn = true;
                     }
@@ -56,12 +56,12 @@ Vue.component('login', {
 
         checkIfInputsAreFilled : function() {
             if (this.user.username == null || this.user.username.trim() === '') {
-                toast('Niste uneli korisničko ime!!');
+                toastt('Niste uneli korisničko ime!!');
                 this.usnameE = true;
                 
                 return false;
             } else if (this.user.password == null || this.user.password.trim() === '') {
-                toast('Niste uneli lozinku!!');
+                toastt('Niste uneli lozinku!!');
                 this.passE = true;
                 
                 return false;

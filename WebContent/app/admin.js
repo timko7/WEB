@@ -11,7 +11,7 @@ Vue.component('admin-page', {
 
     template:
     `
-    <div align="center">
+    <div>
     	<ul class="navbar">
     	
     		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
