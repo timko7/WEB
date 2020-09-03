@@ -1,6 +1,6 @@
-function toast(sMessage) {
+function toastt(sMessage) {
 	var container = $(document.createElement("div"));
-	container.addClass("toast");
+	container.addClass("toastt");
 
 	var message = $(document.createElement("div"));
 	message.addClass("message");
