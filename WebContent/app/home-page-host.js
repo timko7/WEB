@@ -17,6 +17,7 @@ Vue.component('home-page-host', {
     		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
             
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>
+            <li><a href="#" v-on:click="showComponent('host-add-apartment')">Dodavanje apartmana</a></li>
     		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
     	</ul>
     	
