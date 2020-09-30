@@ -2,6 +2,7 @@ package services;
 
 import javax.servlet.ServletContext;
 
+import model.collections.Amenities;
 import model.collections.Users;
 
 public class Data {
@@ -15,6 +16,17 @@ public class Data {
 		}
 		
 		return users;
+	}
+
+	public static Amenities getAmenities(ServletContext servletCtx) {
+		Amenities amenities = (Amenities) servletCtx.getAttribute("amenities");
+		
+		if (amenities == null) {
+			amenities = new Amenities();
+			servletCtx.setAttribute("amenities", amenities);
+		}
+		
+		return amenities;
 	}
 
 }
