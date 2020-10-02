@@ -6,6 +6,9 @@ Vue.component('admin-amenities', {
         		id: null,
         		name: "",
         	},
+        	amenityNewName: "",
+        	amenityChangeName: "",
+        	changeBool: false,
         }
     },
 
@@ -25,9 +28,11 @@ Vue.component('admin-amenities', {
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr v-for="amenity in amenities">
+	                    <tr v-for="amenity in amenities" v-if="!amenity.deleted">
 	                        <td>{{amenity.id}}</td>
-	                        <td>{{amenity.name}}</td>
+                            <td>{{amenity.name}}</td>
+                            <td><button type="button" class="btn btn-dark" v-on:click="deleteAmenity(amenity.name)">Obriši sadržaj</button></td>
+                            <td><button type="button" class="btn btn-dark" @click="change(amenity.name)">Izmeni sadržaj</button></td>
 	                    </tr>
 	                </tbody>
 	            </table>
@@ -49,7 +54,24 @@ Vue.component('admin-amenities', {
 	                </tr>
 	            </table>
 	        </div>
-	    </div>
+        </div>
+        
+        <div class='card' v-if="changeBool">
+	        <div class='card-header'>
+	            <h2>Izmena sadržaja:</h2>
+	        </div>
+	        <div class='card-body'>
+	            <table class="w-50 table-borderless">
+	                <tr>
+	                    <td>Novi naziv sadržaja</td>
+	                    <td><input type="text" v-model="amenityNewName"> </td>
+	                </tr>
+	                <tr>
+	                    <td><button type="button" class="btn btn-dark" v-on:click="changeAmenity()">Izmeni</button></td>
+	                </tr>
+	            </table>
+	        </div>
+        </div>
     </div>
     `,
 
@@ -98,7 +120,46 @@ Vue.component('admin-amenities', {
 		        console.log(error.config);
 		        toastt('Greška prilikom dodavanja sadržaja apartmana!')
 		    });
+		},
+		
+		deleteAmenity(amenityName) {
+			axios.post('rest/data/amenityDelete/' + amenityName)
+			.then((response) => {
+		        // Success 🎉
+		        toastt('Uspešno ste logicko obrisali sadržaj apartmana! Učitajte ponovo stranicu!')
+			})
+			.catch((error) => {
+		        // Error 😨
+		        toastt('Greška prilikom logickog brisanja sadržaja apartmana!')
+		    });
+			return;
+		},
+		
+		
+		change(amenityName) {
+			this.amenityNewName = amenityName;
+			this.amenityChangeName = amenityName;
+			this.changeBool = true;
+			
+		},
+		
+		changeAmenity() {
+			if (this.amenityNewName.trim() === "") {
+				toastt('Polje ne sme biti prazno!!')
+			} else {
+				axios.put('rest/data/amenityChangeName/' + this.amenityChangeName, this.amenityNewName)
+				.then((response) => {
+			        // Success 🎉
+			        toastt('Uspešno ste promenili sadržaj apartmana! Učitajte ponovo stranicu!')
+			        this.changeBool = false
+				})
+				.catch((error) => {
+			        // Error 😨
+			        toastt('Greška prilikom promene sadržaja apartmana!')
+			    });
+			}
 		}
+		
 		
     },
 

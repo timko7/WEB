@@ -9,8 +9,8 @@ function toastt(sMessage) {
 
 	container.appendTo(document.body);
 
-	container.delay(100).fadeIn("slow", function() {
-		$(this).delay(2000).fadeOut("slow", function() {
+	container.delay(500).fadeIn("slow", function() {
+		$(this).delay(5000).fadeOut("slow", function() {
 			$(this).remove();
 		});
 	});

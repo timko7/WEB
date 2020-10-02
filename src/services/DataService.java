@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import model.Amenity;
 import model.User;
@@ -70,18 +72,18 @@ public class DataService {
 		}
 		return new ArrayList<Amenity>();
 	}
-	
+
 	@POST
 	@Path("/amenities")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postAmenity(Amenity amenityToAdd) {
 		Amenities amenities = Data.getAmenities(servletCtx);
-		
+
 		Long id = (long) amenities.getAmenities().size();
-		
+
 		amenityToAdd.setName(amenityToAdd.getName().trim());
-		
+
 		amenityToAdd.setId(id);
 		amenityToAdd.setDeleted(false);
 		if (amenities.findByName(amenityToAdd.getName()) == null) {
@@ -92,19 +94,60 @@ public class DataService {
 			return Response.status(400).entity("Amenity name already exist!").build();
 		}
 	}
-	
+
 	@GET
 	@Path("/amenities/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Amenity getAmenityById(@PathParam("id") Long id) {
 		Amenities amenities = Data.getAmenities(servletCtx);
-		
+
 		Amenity retAmenity = amenities.findById(id);
-		
+
 		return retAmenity;
 	}
-	
-	
+
+	@PUT
+	@Path("/amenityChangeName/{name}")
+	public Response changeAmenityName(@PathParam("name") String amenityName, String newAmenityName) {
+		Amenities amenities = Data.getAmenities(servletCtx);
+
+		Amenity retAmenity = amenities.findByName(amenityName);
+
+		if (retAmenity == null) {
+			return Response.status(Status.NOT_FOUND).entity("Amenity not found!").build();
+		}
+
+		if (newAmenityName.trim() == "") {
+			return Response.status(Status.NOT_ACCEPTABLE).entity("Amenity new name is empty!").build();
+		}
+
+		if (newAmenityName.trim().toLowerCase().equals(amenityName.trim().toLowerCase())) {
+			return Response.ok("Successfully renamed amenity!").build();
+		}
+
+		if (amenities.findByName(newAmenityName) == null) {
+			retAmenity.setName(newAmenityName);
+			amenities.saveAmenities();
+			return Response.ok("Successfully renamed amenity!").build();
+		} else {
+			return Response.status(Status.BAD_REQUEST).entity("Amenity with that name already exist!").build();
+		}
+
+	}
+
+	@POST
+	@Path("/amenityDelete/{name}")
+	public Response deleteAmenity(@PathParam("name") String amenityName) {
+		Amenities amenities = Data.getAmenities(servletCtx);
+
+		Amenity retAmenity = amenities.findByName(amenityName);
+		if (retAmenity != null) {
+			retAmenity.setDeleted(true);
+			amenities.saveAmenities();
+			return Response.ok("Successfully deleted amenity!").build();
+		}
+		return Response.status(Status.NOT_FOUND).entity("Amenity not found!").build();
+	}
 
 }

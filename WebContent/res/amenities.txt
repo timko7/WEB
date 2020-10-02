@@ -4,11 +4,8 @@
 3|Tri|false
 4|Cetri|false
 5|PET|false
-6|sest|false
+6|Sest|false
 7|Sedam|false
 8|Osam|false
-9|Devet|false
-10|a|false
-11|aa|false
-12|aaa|false
-13|as|false
+9|Devet|true
+10|Deveti|false
